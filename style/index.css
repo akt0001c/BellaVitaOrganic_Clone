@@ -1,0 +1,154 @@
+#navbar{
+    width:80%;
+    margin:auto;
+    border-bottom: 1px solid  rgb(188, 188, 194);
+    padding:10px;
+} 
+
+
+#TopnavBar{
+    display:flex;
+    width:100%; 
+   
+    
+    justify-content: space-between;
+    align-items: center;
+    padding:0 10px;
+    margin-bottom: 10px;
+
+}
+.small-image{
+    height:40px;
+    width:40px;
+}
+
+.medium-image{
+    height:80px;
+    width:80px;
+}
+
+
+
+#TopnavBar >div:nth-child(1){
+  width:20%;
+  justify-content: center;
+  
+}
+
+#TopnavBar >div:nth-child(2){
+    width:25%;
+    display:flex;
+    justify-content: center;
+    
+  }
+
+  #TopnavBar >div:nth-child(3){
+    display:flex;
+    width:35%;
+    justify-content: flex-end;
+    align-items: center;
+    
+    justify-content: space-evenly;
+  }
+
+  
+  #search-bar{
+    display:flex;
+    border-radius: 5px;
+    padding:5px 10px;
+    width:55%;
+    justify-content: space-between;
+    box-shadow: 0px 0px 1px 1px rgb(188, 188, 194);
+    
+  }
+  #search-bar img{
+    height:20px;
+    width:20px;
+  }
+
+  #search-bar input{
+    border:none;
+    outline: none;
+  }
+  
+
+  #secondnav{
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  #secondnav a{
+    text-decoration: none;
+    padding-right:5px;
+    padding-bottom:10px;    
+  }
+
+  #secondnav >div{
+    padding: 10px;
+  }
+
+  .border{
+
+    border-right: 1px solid   rgb(188, 188, 194);
+} 
+
+#secondnav  a:hover{
+    border-bottom: 1px solid  rgb(188, 188, 194); ;
+}
+
+
+#top-banner{
+    height: 400px;
+    width:80%;
+  
+    border-radius: 10px;
+    margin:auto;
+    margin-top: 20px;
+}
+#top-banner img{
+    height:80%;
+    width:100%;
+    border-radius: 10px;
+}
+
+.pagination{
+    height:15%;
+    width:80%;
+}
+
+#mid-banner{
+    height:200px;
+    width:80%;
+    margin:auto;
+    
+}
+
+#mid-banner img{
+    height: 100%;
+    width:100%;
+    border-radius: 10px;
+}
+
+#last-banner{
+    height:120px;
+    width:80%;
+    margin:auto;
+    margin-top: 15px;
+}
+#last-banner img{
+    height: 80%;
+    width:100%;
+}
+
+#product-heading h2{
+    color:#475D4B;
+    text-align: center;
+}
+#product-heading h2::before{
+    content: " ";
+    height:2px;
+    
+
+}
+
+  
