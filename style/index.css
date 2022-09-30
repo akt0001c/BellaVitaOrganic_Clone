@@ -1,8 +1,8 @@
 
 
-=======
+
 #navbar{
-    width:80%;
+    width:70%;
     margin:auto;
     border-bottom: 1px solid  rgb(188, 188, 194);
     padding:10px;
@@ -102,7 +102,7 @@
 
 #top-banner{
     height: 400px;
-    width:80%;
+    width:70%;
   
     border-radius: 10px;
     margin:auto;
@@ -115,13 +115,40 @@
 }
 
 .pagination{
-    height:15%;
-    width:80%;
+    height:10%;
+    width:70%;
+    margin:auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.pagination-tab{
+    border: 2px solid black;
+    width: 8px;
+    height: 5px;
+    display:inline;
+    content: " ";
+    border-radius: 50%;
+    background-color: white;
+    margin-right: 5px;
+    cursor: pointer;
 }
 
+.pagination-tab2{
+    border: 2px solid black;
+    width: 8px;
+    height: 5px;
+    display:inline;
+    content: " ";
+    border-radius: 50%;
+    background-color: white;
+    margin-right: 5px;
+    cursor: pointer;
+}
 #mid-banner{
     height:200px;
-    width:80%;
+    width:70%;
     margin:auto;
     
 }
@@ -136,7 +163,7 @@
 
 #last-banner{
     height:120px;
-    width:80%;
+    width:70%;
     margin:auto;
     margin-top: 15px;
 }
@@ -156,7 +183,7 @@
 
 }
 #product{
-    width:70%;
+    width:60%;
     margin:auto;
 }
 
@@ -198,19 +225,74 @@
 }
 
 .product-box{
-    border:1px solid red;
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    
 }
 .product-box p{
     font-size: 12px;
+    margin:0px;
 }
 .product-image{
-    height:40%;
+    height:60%;
     width:100%;
     }
 .product-btn{
     width:100%;
+    height:30px;
     background-color: rgb(94, 93, 93);
     color:white;
     border-radius: 5px;
+    
+}
+
+.product-innerBox{
+    height:28%;
+    padding:10px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-box h5{
+    margin-top: 0px;
+    margin-bottom: 5px  ;
+}
+.product-box h3{
+    margin:0px;
+}
+#product-slide{
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    margin-top: 20px;
 }
  
+.slideButton{
+    border: 1px solid black;
+    width: 8px;
+    height: 5px;
+    display:inline;
+    content: " ";
+    border-radius: 50%;
+    background-color: white;
+    margin-right: 3px;
+    cursor: pointer;
+    
+}
+.active, .pagination-tab:hover, .pagination-tab2:hover, .slideButton:hover {
+    background-color: #717171;
+  }
+  
+  .fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+  
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  } 
