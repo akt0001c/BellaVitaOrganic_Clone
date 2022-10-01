@@ -64,6 +64,8 @@ let box= document.querySelector("#product-page");
 let dataperpage=4;
 let page= Math.ceil(productData.length/dataperpage);
 let defaultpage= productData.slice(0,dataperpage);
+let slide= document.querySelector("#product-slide");
+
 
 function display(data)
 {
@@ -75,7 +77,11 @@ function display(data)
          image.src= el.url;
          image.setAttribute("class","product-image");
 
-         let heading1= document.createElement("h4");
+         let innerdiv= document.createElement("div");
+         innerdiv.setAttribute("class","product-innerBox");
+
+
+         let heading1= document.createElement("h5");
          heading1.innerText= el.detail;
 
          let heading2= document.createElement("p");
@@ -83,12 +89,14 @@ function display(data)
 
          let price= document.createElement("h3");
          price.innerText= el.price;
+
+         innerdiv.append(heading1,heading2,price);
          
          let btn= document.createElement("button");
          btn.innerText= `ADD TO CART`;
          btn.setAttribute("class","product-btn");
 
-         div.append(image,heading1,heading2,price,btn);
+         div.append(image,innerdiv,btn);
          box.append(div);
     });
 
@@ -96,3 +104,25 @@ function display(data)
 }
 
 display(defaultpage);
+
+for(let i=0;i<page;i++)
+{
+    let slideButton= document.createElement("span");
+     slideButton.setAttribute("class","slideButton");
+     slideButton.innerText="  ";
+     
+     ;
+    
+
+     slideButton.addEventListener("click",function(){
+        
+        
+        display(productData.slice(i*dataperpage,(i+1)*dataperpage));
+       
+       
+         });
+
+     
+    slide.append(slideButton);
+
+}
