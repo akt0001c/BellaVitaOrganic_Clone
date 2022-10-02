@@ -183,7 +183,7 @@
 
 }
 #product{
-    width:60%;
+    width:70%;
     margin:auto;
 }
 
@@ -191,7 +191,7 @@
     position: relative;
     text-align: center  ;
     margin: 20px auto;
-    max-width: 500px;
+    max-width: 600px;
 
 }
 
@@ -272,14 +272,14 @@
 }
  
 .slideButton{
-    border: 1px solid black;
+    border: 2px solid black;
     width: 8px;
     height: 5px;
     display:inline;
     content: " ";
     border-radius: 50%;
     background-color: white;
-    margin-right: 3px;
+    margin-right: 5px;
     cursor: pointer;
     
 }
@@ -289,7 +289,7 @@
   
   .fade {
     animation-name: fade;
-    animation-duration: 3s;
+    animation-duration: 900s;
   }
   
   @keyframes fade {
@@ -334,3 +334,47 @@
     margin-top: 15px;
     
   }
+
+  #solution-board{
+    width:70%;
+    margin:auto;
+  }
+  #solution-page{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: 270px;
+    gap:15px;
+  }
+  .solution-img{
+    height: 100%;
+    width:100%;
+  }
+
+  #luxiries{
+    width:70%;
+    margin:auto;
+  }
+  #luxury-page{
+    display:grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: 270px;
+    gap:15px;
+  }
+
+  #solution-slide{
+    height:50px;
+    width:70%;
+    margin:auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+ .luxury-img{
+  height:100%;
+  width:100%;
+ }
+
+ #luxury-page>div:hover{
+  transform: scale(1.1);
+ }
