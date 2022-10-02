@@ -1,0 +1,26 @@
+*{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#signup-page{
+    width:45%;
+    height:400px;
+    margin:auto;
+    
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+}
+
+form{
+    text-align: center;
+    height: 70%;
+}
+
+form >div{
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}

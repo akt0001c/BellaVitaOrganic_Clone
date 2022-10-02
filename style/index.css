@@ -315,6 +315,10 @@
     box-shadow: 0px 0px 2px 2px gray;
     border-radius: 5px;
     cursor: pointer;
+    overflow: hidden;
+    height:100%;
+
+
   }
   #categry-page p{
     margin:0px;
@@ -378,3 +382,187 @@
  #luxury-page>div:hover{
   transform: scale(1.1);
  }
+
+ .bottom{
+  width:70%;
+  margin:auto;
+ }
+
+ #bottom2-slide{
+  display:grid;
+  grid-template-columns: repeat(6,1fr);
+  grid-template-rows: 100px;
+  gap:25px;
+ }
+
+ #bottom2-slide >div{
+  border:none;
+  box-shadow: none;
+ }
+
+ #bottom2-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
+
+ /*  footer section     */
+
+ #main-footer{
+  background-color: #e5f0da;
+ }
+
+    #footer-application-link-section{
+      
+      margin:auto;
+      background-color: #e5f0da;
+      padding:115px 0 125px;
+      margin-top: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    } 
+
+    
+#footer-application-link-sub-section{
+  
+  margin:50px 0 40px;
+}
+
+
+#footer-heading{
+  background-color: #475D4B;
+  
+}
+#footer-heading h3{
+  font-size: 43px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color:#e5f0da;
+  padding:10px 0px;
+  margin-left: 900px;
+}
+#footer-application-section img{
+  height:70px;
+  width:200px;
+}
+
+#footer-application-section{
+  display: flex;
+  margin:30px 0 0 900px;
+  
+
+}
+#footer-img{
+  position:absolute;
+  margin:50px 0 300px 400px;
+  
+  
+}
+#footer-details{
+  padding:55px 250px 25px 250px;
+  background-color: #E4EFDA80;
+  font-size: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+#footer-table-grid{
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  grid-template-rows: 300px;
+  gap:20px;
+}
+
+#footer-table-grid a{
+  text-decoration: none;
+  font-size: 13px;
+  padding:5px 0px;
+  color:#000000;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#footer-table-grid li{
+  margin:7px 0px;
+}
+
+#footer-table-grid ul{
+  list-style: none;
+}
+
+#footer-table-grid a:hover{
+  color:green;
+}
+
+#footer-table-grid h2{
+ border-bottom: 1px solid green;
+ padding-bottom: 5px;
+}
+
+#login-page{
+  height:450px;
+  width:45%;
+  margin:auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+}
+#login-page h1{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 40px;
+}
+
+form >div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+form p{
+  margin:0px;
+  ;
+}
+form  input{
+  height: 30px;
+  width:80%;
+}
+
+.login-details{
+  
+  width:100%;
+  justify-content: space-evenly;
+  
+}
+
+form{
+  height: 150px;
+  width:80%;
+}
+#main-detail{
+  height: 150px;
+}
+#subheading{
+  text-align: center;
+}
+
+ form>div>#crac{
+  display: block;
+}
+
+form a{
+  color:#475D4B;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 10px;
+}
+
+form button{
+  padding:10px 70px;
+  border-radius: 5px;
+  background-color: #000000;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
