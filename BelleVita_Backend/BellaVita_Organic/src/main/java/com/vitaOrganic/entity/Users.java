@@ -2,16 +2,21 @@ package com.vitaOrganic.entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -72,4 +77,10 @@ public class Users {
  
  @OneToMany(mappedBy="user" ,cascade=CascadeType.ALL)
  private List<Orders> orders= new ArrayList<>();
+ 
+ private Set<Transactions> transactions = new HashSet<>();
+ 
+ @ElementCollection(fetch= FetchType.EAGER)
+ @Embedded
+ private List<Address> addresses= new ArrayList<>();
 }

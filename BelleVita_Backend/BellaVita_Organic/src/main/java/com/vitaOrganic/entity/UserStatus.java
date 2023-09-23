@@ -1,5 +1,5 @@
 package com.vitaOrganic.entity;
 
 public enum UserStatus {
-  Active,Deactivated;
+  Active,Inactive,Deactivated_by_user;
 }
