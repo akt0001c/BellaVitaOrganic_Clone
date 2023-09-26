@@ -16,8 +16,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,6 +44,10 @@ public class Products {
    
    @Enumerated(EnumType.STRING)
    private ProductStatus status;
+   
+   @DecimalMin(value="0.0")
+   @NotNull(message="Price cannot be null")
+   private Double productPrice;
    
    @OneToMany(mappedBy="product",cascade=CascadeType.ALL)
    private List<OrderDetail> orderDetails= new ArrayList<>();

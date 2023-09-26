@@ -45,10 +45,14 @@ public class Orders {
 	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
 	
+	private  Double total_order_value;
+	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="USER_ID")
 	@JsonIgnore
 	private Users user;
+	
+	
 	
 	@OneToMany(mappedBy="order",cascade=CascadeType.ALL)
 	private List<OrderDetail> orderDetails =new ArrayList<>();
