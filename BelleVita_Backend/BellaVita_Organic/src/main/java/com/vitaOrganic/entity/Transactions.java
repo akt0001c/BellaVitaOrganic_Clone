@@ -49,6 +49,10 @@ private Orders orders;
 @DecimalMin(value="0.0")
 private Double tamount;
 
+@Column(name="TransactionStatus")
+@Enumerated(EnumType.STRING)
+private TransactionStatus status;
+
 
 
 
