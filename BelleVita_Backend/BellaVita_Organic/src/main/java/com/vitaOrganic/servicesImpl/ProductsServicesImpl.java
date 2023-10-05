@@ -4,53 +4,53 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.vitaOrganic.entity.Address;
-import com.vitaOrganic.entity.Users;
-import com.vitaOrganic.services.UsersServices;
+import com.vitaOrganic.dto.ProductsUpdatedFieldsDto;
+import com.vitaOrganic.entity.Products;
+import com.vitaOrganic.services.ProductsServices;
 
 @Service
-public class UserServicesImpl implements UsersServices {
+public class ProductsServicesImpl  implements ProductsServices{
 
 	@Override
-	public String logIn(String email, String password) {
+	public Products addProduct(Products ob) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String signUp(Users user) {
+	public Products updateProduct(Integer pid, ProductsUpdatedFieldsDto ob) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Users getUserDetails(String email) {
+	public Products removeProduct(Integer pid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Users> getAllUsers() {
+	public Products getProductByName(String pname) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Users changeStatus(String email ,String status) {
+	public Products getProductById(Integer pid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String deactivateAccount(String email) {
+	public List<Products> getAllProducts() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Address> getAllAddress(String email, String FirstName) {
+	public Products changeStatus(Integer pid, String status) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+   
 }

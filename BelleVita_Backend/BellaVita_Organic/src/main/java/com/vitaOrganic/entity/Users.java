@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -52,14 +51,14 @@ public class Users {
  
  @Email(message="Email should be in valid format(abc@email.com)")
  @NotEmpty(message="Email cannot be Empty")
- @NotBlank(message="Email Cannot be blank so enter valid Frist name")
+ @NotBlank(message="Email Cannot be blank so enter valid  email address")
  @Column(unique=true)
  private String email;
  
  @NotEmpty(message="Password cannot be Empty")
  @NotBlank(message="Password Cannot be blank so enter valid Password and there should be ")
  @Pattern(regexp="[A-Z]{1}[a-z]+[@#$]+[1-9]+")
- @JsonProperty(access=Access.WRITE_ONLY)
+ @JsonProperty(access= JsonProperty.Access.WRITE_ONLY)
  @Column(unique=true)
  private String password;
  

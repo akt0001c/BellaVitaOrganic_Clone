@@ -3,6 +3,8 @@ package com.vitaOrganic.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,6 +40,7 @@ public class TransactionMethod {
  @Column(name="isActive", columnDefinition="boolean")
  private boolean isActive;
  
+ @JsonIgnore
  @OneToMany(cascade=CascadeType.PERSIST)
  @JoinColumn(name="ttid")
  private List<Transactions> transactions= new ArrayList<>();
