@@ -39,6 +39,10 @@ public class Products {
    @NotBlank(message="Product Cannot be blank so enter valid Product name")
    private String productName;
    
+   @NotEmpty(message="Product must have a valid image url")
+   @NotBlank(message="Product image url cannot be blank")
+   private String productUrl;
+   
    @Temporal(TemporalType.TIMESTAMP)
    private LocalDateTime productAddTime;
    

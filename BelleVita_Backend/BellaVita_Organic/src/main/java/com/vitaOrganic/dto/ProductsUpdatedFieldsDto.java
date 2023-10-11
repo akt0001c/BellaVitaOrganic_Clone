@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class ProductsUpdatedFieldsDto {
 private String productName;
 private Double productPrice;
+private String productUrl;
 
 }

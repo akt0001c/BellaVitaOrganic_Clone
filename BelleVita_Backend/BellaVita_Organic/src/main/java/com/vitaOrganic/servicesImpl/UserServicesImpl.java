@@ -1,5 +1,6 @@
 package com.vitaOrganic.servicesImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -20,37 +21,39 @@ public class UserServicesImpl implements UsersServices {
 	@Override
 	public String signUp(Users user) {
 		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 	@Override
 	public Users getUserDetails(String email) {
 		// TODO Auto-generated method stub
-		return null;
+		return new Users();
 	}
 
 	@Override
 	public List<Users> getAllUsers() {
 		// TODO Auto-generated method stub
-		return null;
+		List<Users>  list = new ArrayList<>();
+		return list;
 	}
 
 	@Override
 	public Users changeStatus(String email ,String status) {
 		// TODO Auto-generated method stub
-		return null;
+		return new Users();
 	}
 
 	@Override
 	public String deactivateAccount(String email) {
 		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 	@Override
 	public List<Address> getAllAddress(String email, String FirstName) {
 		// TODO Auto-generated method stub
-		return null;
+		List<Address>  addressList =  new ArrayList<>();
+		return addressList;
 	}
 
 }

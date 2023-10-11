@@ -30,7 +30,7 @@ public class ProductsServicesImpl  implements ProductsServices{
 	}
 
 	@Override
-	public Products getProductByName(String pname) {
+	public List<Products> getProductByName(String pname) {
 		// TODO Auto-generated method stub
 		return null;
 	}

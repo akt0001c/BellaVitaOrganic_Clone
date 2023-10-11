@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,21 +38,30 @@ private UsersServices uservice;
 //	}
 //	
 //	
-//	@PostMapping("/signUp")
-//	public ResponseEntity<String> signUp(Users user){
-//	    return new ResponseEntity<>("",HttpStatus.CREATED);	
-//	}
+	@PostMapping("/signUp")
+	public ResponseEntity<String> signUp(Users user){
+	    return new ResponseEntity<>("welcome user",HttpStatus.CREATED);	
+	}
 	
+    @GetMapping("/testing")
+    public ResponseEntity<String> testMethod(){
+    	return new ResponseEntity<>("Welcome User",HttpStatus.ACCEPTED);
+    }
+    
 	@GetMapping("/getUserDetails")
 	public ResponseEntity<Users> getUser(Authentication auth){
 		
 		Users user= uservice.getUserDetails(auth.getName());
+	
 		return new ResponseEntity<>(user ,HttpStatus.ACCEPTED);
 	}
 	
 	@GetMapping("/getAllUsers")
 	public ResponseEntity<List<Users>> getAllUser(){
 		List<Users> list = uservice.getAllUsers();
+		
+	
+		
 		return new ResponseEntity<>(list,HttpStatus.ACCEPTED);
 	} 
 	
