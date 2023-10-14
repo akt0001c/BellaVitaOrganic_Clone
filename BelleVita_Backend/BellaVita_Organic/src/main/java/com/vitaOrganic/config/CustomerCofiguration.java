@@ -12,7 +12,7 @@ public class CustomerCofiguration {
 	@Bean		
 	public SecurityFilterChain mySecurityConfig(HttpSecurity http)throws Exception{
 		http.authorizeHttpRequests((auth)->{
-				auth.requestMatchers("/signUp").permitAll()
+				auth.requestMatchers("/signUp","/products").permitAll()
 				.anyRequest().authenticated();
 		       }).csrf(csrf->csrf.disable())
 		         .formLogin(Customizer.withDefaults())

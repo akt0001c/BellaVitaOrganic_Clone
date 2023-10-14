@@ -19,7 +19,7 @@ public class OrdersServicesImpl implements OrdersServices {
 	}
 
 	@Override
-	public Orders changeOrderStatus(String email, Integer orderId, String status) {
+	public Orders changeOrderStatus( Integer orderId, String status) {
 		// TODO Auto-generated method stub
 		return null;
 	}

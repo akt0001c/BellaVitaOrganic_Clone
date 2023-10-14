@@ -7,7 +7,7 @@ import com.vitaOrganic.entity.Orders;
 
 public interface OrdersServices {
 public Orders placeOrder(String email,OrdersDto ordersProduct);
-public Orders changeOrderStatus(String email,Integer orderId ,String status);
+public Orders changeOrderStatus(Integer orderId ,String status);
 public Orders getOrderDetailById(Integer orderId);
 public List<Orders> getAllOrders();
 public List<Orders> getOrdersForOneUser(String email);
