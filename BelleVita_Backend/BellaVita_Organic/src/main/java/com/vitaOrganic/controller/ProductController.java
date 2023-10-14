@@ -1,6 +1,5 @@
 package com.vitaOrganic.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,43 +34,43 @@ public void setPservices(ProductsServices pservices) {
 
 @PostMapping("/add")
 public ResponseEntity<Products> addProduct(@Valid @RequestBody Products prod){
-	Products res= new Products();
+	Products res= pservices.addProduct(prod);
 	return new ResponseEntity<>(res,HttpStatus.CREATED);
 }
 
 @PatchMapping("/update/{pid}")
 public ResponseEntity<Products> updateProduct(  @PathVariable("pid")Integer pid ,@RequestBody ProductsUpdatedFieldsDto ob){
-	Products res= new Products();
+	Products res= pservices.updateProduct(pid, ob);
 	return new ResponseEntity<>(res,HttpStatus.ACCEPTED);
 }
 
 @DeleteMapping("/delete/{pid}")
 public ResponseEntity<Products> removeProduct( @PathVariable("pid") Integer pid){
-	Products res= new Products();
+	Products res= pservices.removeProduct(pid);
 	return new ResponseEntity<>(res,HttpStatus.ACCEPTED);
 }
 
 @GetMapping("/product/{pid}")
 public ResponseEntity<Products> getProductById(@PathVariable("pid") Integer id){
-	Products res= new Products();
+	Products res= pservices.getProductById(id);
 	return new ResponseEntity<>(res,HttpStatus.FOUND);
 }
 
 @GetMapping("/products/productName")
 public ResponseEntity<List<Products>> getProductByName(@RequestParam("pname") String name){
-	List<Products> res= new ArrayList<>();
+	List<Products> res= pservices.getProductByName(name);
 	return new ResponseEntity<>(res,HttpStatus.FOUND);
 } 
  
 @GetMapping("/products")
 public ResponseEntity<List<Products>> getAllProducts(){
-	List<Products> res= new ArrayList<>();
+	List<Products> res= pservices.getAllProducts();
 	return new ResponseEntity<>(res,HttpStatus.FOUND);
 }
 
 @PatchMapping("/update/status/{pid}")
 public ResponseEntity<Products> updateStatus(@PathVariable("pid") Integer pid,@RequestParam("pstatus") String status){
-	Products res= new Products();
+	Products res= pservices.changeStatus(pid, status);
 	return new ResponseEntity<>(res,HttpStatus.ACCEPTED);
 }
 

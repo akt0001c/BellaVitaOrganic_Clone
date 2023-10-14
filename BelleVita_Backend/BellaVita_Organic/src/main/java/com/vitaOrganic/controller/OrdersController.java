@@ -53,11 +53,13 @@ public ResponseEntity<Orders> getOrderDetail(@PathVariable("oid") Integer oid){
 	return new ResponseEntity<>(res,HttpStatus.FOUND);
 }
 
+@GetMapping("/orders")
 public ResponseEntity<List<Orders>> getAllOrders(){
 	List<Orders> res= new ArrayList<>();
 	return new ResponseEntity<>(res,HttpStatus.FOUND);
 }
 
+@GetMapping("/ordersForOne")
 public ResponseEntity<List<Orders>> getOrdersForOneUser(Authentication auth){
 	List<Orders> res= oservice.getOrdersForOneUser(auth.getName());
 	return new ResponseEntity<>(res,HttpStatus.FOUND);
