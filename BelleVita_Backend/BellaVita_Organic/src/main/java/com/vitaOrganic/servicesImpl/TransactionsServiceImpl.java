@@ -1,5 +1,6 @@
 package com.vitaOrganic.servicesImpl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -30,6 +31,12 @@ public class TransactionsServiceImpl implements TransactionsService {
 
 	@Override
 	public List<Transactions> getAllTransactions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Transactions> getTransactionsForPeriod(String email, LocalDate d1, LocalDate d2) {
 		// TODO Auto-generated method stub
 		return null;
 	}
