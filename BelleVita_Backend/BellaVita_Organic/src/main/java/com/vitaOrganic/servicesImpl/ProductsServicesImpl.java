@@ -52,5 +52,11 @@ public class ProductsServicesImpl  implements ProductsServices{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void updateProductQuantity(Integer pid, Integer quantity) {
+		// TODO Auto-generated method stub
+		
+	}
    
 }

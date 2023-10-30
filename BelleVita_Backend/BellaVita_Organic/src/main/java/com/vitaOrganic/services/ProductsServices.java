@@ -13,5 +13,6 @@ public List<Products> getProductByName(String pname);
 public Products getProductById(Integer pid);
 public List<Products> getAllProducts();
 public Products changeStatus(Integer pid,String status);
+public void updateProductQuantity(Integer pid, Integer quantity);
 
 }

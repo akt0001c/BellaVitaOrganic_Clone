@@ -18,6 +18,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -51,6 +52,9 @@ public class Orders {
 	@JoinColumn(name="USER_ID")
 	@JsonIgnore
 	private Users user;
+	
+	@OneToOne(mappedBy="order",cascade= CascadeType.PERSIST)
+	private Transactions transaction;
 	
 	
 	

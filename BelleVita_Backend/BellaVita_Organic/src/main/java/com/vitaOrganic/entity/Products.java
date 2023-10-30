@@ -17,6 +17,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -43,13 +44,16 @@ public class Products {
    @NotBlank(message="Product image url cannot be blank")
    private String productUrl;
    
+   @Min(value=0,message="Product quantity atleast should be one")
+   private Integer quantity;
+   
    @Temporal(TemporalType.TIMESTAMP)
    private LocalDateTime productAddTime;
    
    @Enumerated(EnumType.STRING)
    private ProductStatus status;
    
-   @DecimalMin(value="0.0")
+   @DecimalMin(value="0.0",message="Price cannot not be neagtive")
    @NotNull(message="Price cannot be null")
    private Double productPrice;
    

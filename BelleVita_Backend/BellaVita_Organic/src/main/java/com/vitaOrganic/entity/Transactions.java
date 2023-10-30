@@ -40,9 +40,9 @@ private LocalDateTime timestamp;
 @Enumerated(EnumType.STRING)
 private TransactionType ttype;
 
-@OneToOne(cascade=CascadeType.ALL)
-@JoinColumn(name="ORDERID")
-private Orders orders;
+@OneToOne(cascade=CascadeType.PERSIST )
+@JoinColumn(name="ORDERID" ,referencedColumnName="ORDERID")
+private Orders order;
 
 @Column(name="transactionAmount")
 @NotNull(message="Transaction amount should be there")
