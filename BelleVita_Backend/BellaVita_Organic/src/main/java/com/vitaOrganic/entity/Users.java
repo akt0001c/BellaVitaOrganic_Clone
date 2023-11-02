@@ -79,8 +79,7 @@ public class Users {
  @OneToMany(mappedBy="user" ,cascade=CascadeType.ALL)
  private List<Orders> orders= new ArrayList<>();
  
- @OneToMany(cascade=CascadeType.ALL)
- @JoinColumn(name="USER_ID")
+ @OneToMany(mappedBy="user", cascade=CascadeType.ALL)
  private Set<Transactions> transactions = new HashSet<>();
  
  @ElementCollection(fetch= FetchType.EAGER)

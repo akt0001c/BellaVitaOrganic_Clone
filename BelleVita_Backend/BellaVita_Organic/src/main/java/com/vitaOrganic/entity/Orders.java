@@ -53,6 +53,7 @@ public class Orders {
 	@JsonIgnore
 	private Users user;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy="order",cascade= CascadeType.PERSIST)
 	private Transactions transaction;
 	

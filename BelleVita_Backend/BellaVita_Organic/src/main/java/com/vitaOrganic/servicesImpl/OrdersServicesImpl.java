@@ -3,6 +3,7 @@ package com.vitaOrganic.servicesImpl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +20,7 @@ import com.vitaOrganic.entity.TransactionStatus;
 import com.vitaOrganic.entity.TransactionType;
 import com.vitaOrganic.entity.Transactions;
 import com.vitaOrganic.entity.Users;
+import com.vitaOrganic.execptions.OperationFaliureException;
 import com.vitaOrganic.execptions.OrderException;
 import com.vitaOrganic.execptions.OrderNotFoundException;
 import com.vitaOrganic.execptions.ProductNotFoundException;
@@ -27,6 +29,8 @@ import com.vitaOrganic.repository.OrdersRepository;
 import com.vitaOrganic.repository.ProductsRepository;
 import com.vitaOrganic.repository.UsersRepository;
 import com.vitaOrganic.services.OrdersServices;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class OrdersServicesImpl implements OrdersServices {
@@ -63,6 +67,7 @@ public class OrdersServicesImpl implements OrdersServices {
 	 * @exception UserNotLoggedExcepiton,ProductNotFoundException
 	 */
 	@Override
+	@Transactional
 	public Orders placeOrder(String email, OrdersDto ordersProduct,String transactionmethod) {
 		Users user = urepo.findByEmail(email).orElseThrow(()->new UserNotLoggedInException("User should be logged in for placing order"));
 		Orders order= new Orders();
@@ -95,8 +100,13 @@ public class OrdersServicesImpl implements OrdersServices {
 		transaction.setOrder(order);
 		transaction.setTamount(order_amount);
 		
-		transaction.setTimestamp(LocalDateTime.now());
+		transaction.setTransactionTime(LocalTime.now());
+		transaction.setTransactionDate(LocalDate.now());
+		try {
 		transaction.setTtype(TransactionType.valueOf(TransactionType.class, transactionmethod));
+		}catch(IllegalArgumentException | NullPointerException exp) {
+			throw new OperationFaliureException("Operation Fallure");
+		}
 		transaction.setStatus(TransactionStatus.Completed);
 		
 		order.setTransaction(transaction);
@@ -115,6 +125,7 @@ public class OrdersServicesImpl implements OrdersServices {
 	 * It is used to change the status of an order by using orderId and given status
 	 * @author Ankit Choubey
 	 * @param orderId,status
+	 * @exception OrderException,OrderNotFoundException
 	 * @return Orders
 	 */
 	@Override
@@ -126,7 +137,15 @@ public class OrdersServicesImpl implements OrdersServices {
 	    return	orepo.save(order);
 		
 	}
-
+	
+	
+    /**
+     * It is used to get order detals of one particular order by using its id
+     * @author Ankit choubey
+     * @param orderId
+     * @exception OrderNotFoundException,OrderException
+     * @return Orders 
+     */
 	@Override
 	public Orders getOrderDetailById(Integer orderId) {
 		if(orderId==null )
@@ -134,6 +153,13 @@ public class OrdersServicesImpl implements OrdersServices {
 		return orepo.findById(orderId).orElseThrow(()-> new OrderNotFoundException("Order cannot be found for this orderid:"+ orderId+" "));
 	}
 
+	
+	/**
+	 * It is used to get all the orders in list format 
+	 * @author Ankit choubey
+	 * @exception OrderException
+	 * @return List<orders>
+	 */
 	@Override
 	public List<Orders> getAllOrders() {
 		List<Orders> res= orepo.findAll();
@@ -142,7 +168,15 @@ public class OrdersServicesImpl implements OrdersServices {
 		
 		return res;
 	}
-
+	
+	
+    /**
+     * It is used to get all orders for logged user  
+     * @author Ankit choubey
+     * @exception UserNotLoggedInException,OrderException
+     * @param user_email
+     * @return List<orders> 
+     */
 	@Override
 	public List<Orders> getOrdersForOneUser(String email) {
 		

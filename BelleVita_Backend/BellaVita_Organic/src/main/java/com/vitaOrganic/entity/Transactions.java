@@ -1,6 +1,9 @@
 package com.vitaOrganic.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -32,9 +36,13 @@ public class Transactions {
 @Column(name="tid")
 private Integer transactionId;
 
-@Column(name="timestamp")
-@Temporal(TemporalType.TIMESTAMP)
-private LocalDateTime timestamp;
+@Column(name="transactionTime")
+@Temporal(TemporalType.TIME)
+private LocalTime transactionTime;
+
+@Column(name="transactionDate")
+@Temporal(TemporalType.DATE)
+private LocalDate transactionDate;
 
 @Column(name="transactionType")
 @Enumerated(EnumType.STRING)
@@ -43,6 +51,11 @@ private TransactionType ttype;
 @OneToOne(cascade=CascadeType.PERSIST )
 @JoinColumn(name="ORDERID" ,referencedColumnName="ORDERID")
 private Orders order;
+
+@JsonIgnore
+@ManyToOne(cascade=CascadeType.PERSIST)
+@JoinColumn(name="user_id")
+private Users user;
 
 @Column(name="transactionAmount")
 @NotNull(message="Transaction amount should be there")
