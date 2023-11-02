@@ -17,6 +17,7 @@ import com.vitaOrganic.services.ProductsServices;
 import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class ProductsServicesImpl  implements ProductsServices{
 	
 	private ProductsRepository prepo;
@@ -33,7 +34,6 @@ public class ProductsServicesImpl  implements ProductsServices{
 	 * @return Products
 	 */
 	@Override
-	@Transactional
 	public Products addProduct(Products ob) {
 		if(ob.getQuantity()>0)
 			  ob.setStatus(ProductStatus.Available);

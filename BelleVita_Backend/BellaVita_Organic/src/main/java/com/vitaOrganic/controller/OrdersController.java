@@ -34,9 +34,9 @@ public void setOservice(OrdersServices oservice) {
 }
 	
 @PostMapping("/placeOrder")	
-public ResponseEntity<Orders> placeOrder(@Valid Authentication auth, @RequestBody  OrdersDto ob, @RequestParam("method") String tmethod){
+public ResponseEntity<Orders> placeOrder(@Valid Authentication auth, @RequestBody  OrdersDto ob, @RequestParam("method") Integer tmethodId){
   String uemail= auth.getName();
-  Orders order= oservice.placeOrder(uemail, ob,tmethod);
+  Orders order= oservice.placeOrder(uemail, ob,tmethodId);
   return new ResponseEntity<>(order,HttpStatus.CREATED);
   
 }

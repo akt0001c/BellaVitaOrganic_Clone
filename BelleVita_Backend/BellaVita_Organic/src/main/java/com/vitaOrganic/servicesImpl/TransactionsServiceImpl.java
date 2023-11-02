@@ -15,7 +15,10 @@ import com.vitaOrganic.repository.TransactionsRepository;
 import com.vitaOrganic.repository.UsersRepository;
 import com.vitaOrganic.services.TransactionsService;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class TransactionsServiceImpl implements TransactionsService {
 	
 	private TransactionsRepository trepo;

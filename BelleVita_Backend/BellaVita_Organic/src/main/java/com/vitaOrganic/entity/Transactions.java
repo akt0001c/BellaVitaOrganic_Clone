@@ -44,9 +44,7 @@ private LocalTime transactionTime;
 @Temporal(TemporalType.DATE)
 private LocalDate transactionDate;
 
-@Column(name="transactionType")
-@Enumerated(EnumType.STRING)
-private TransactionType ttype;
+
 
 @OneToOne(cascade=CascadeType.PERSIST )
 @JoinColumn(name="ORDERID" ,referencedColumnName="ORDERID")

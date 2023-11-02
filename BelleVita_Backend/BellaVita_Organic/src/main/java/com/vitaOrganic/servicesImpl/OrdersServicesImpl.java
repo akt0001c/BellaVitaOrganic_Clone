@@ -16,33 +16,40 @@ import com.vitaOrganic.entity.OrderDetail;
 import com.vitaOrganic.entity.OrderStatus;
 import com.vitaOrganic.entity.Orders;
 import com.vitaOrganic.entity.Products;
+import com.vitaOrganic.entity.TransactionMethod;
 import com.vitaOrganic.entity.TransactionStatus;
-import com.vitaOrganic.entity.TransactionType;
 import com.vitaOrganic.entity.Transactions;
 import com.vitaOrganic.entity.Users;
-import com.vitaOrganic.execptions.OperationFaliureException;
 import com.vitaOrganic.execptions.OrderException;
 import com.vitaOrganic.execptions.OrderNotFoundException;
 import com.vitaOrganic.execptions.ProductNotFoundException;
+import com.vitaOrganic.execptions.TransactionMethodNotFoundException;
 import com.vitaOrganic.execptions.UserNotLoggedInException;
 import com.vitaOrganic.repository.OrdersRepository;
 import com.vitaOrganic.repository.ProductsRepository;
+import com.vitaOrganic.repository.TransactionMethodRepository;
 import com.vitaOrganic.repository.UsersRepository;
 import com.vitaOrganic.services.OrdersServices;
 
 import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class OrdersServicesImpl implements OrdersServices {
 	
 	
 	private UsersRepository urepo;
 	private OrdersRepository orepo;
 	private ProductsRepository prepo;
+	private TransactionMethodRepository tmrepo;
 	
 	
 	
 	
+	@Autowired
+	public void setTmrepo(TransactionMethodRepository tmrepo) {
+		this.tmrepo = tmrepo;
+	}
 
 	@Autowired
 	public void setPrepo(ProductsRepository prepo) {
@@ -64,11 +71,10 @@ public class OrdersServicesImpl implements OrdersServices {
 	 * @author Ankit Choubey
 	 * @return Orders
 	 * @param email,OrdersDto
-	 * @exception UserNotLoggedExcepiton,ProductNotFoundException
+	 * @exception UserNotLoggedExcepiton,ProductNotFoundException,TransactionMethodNotFoundException
 	 */
 	@Override
-	@Transactional
-	public Orders placeOrder(String email, OrdersDto ordersProduct,String transactionmethod) {
+	public Orders placeOrder(String email, OrdersDto ordersProduct,Integer transactionMethodId) {
 		Users user = urepo.findByEmail(email).orElseThrow(()->new UserNotLoggedInException("User should be logged in for placing order"));
 		Orders order= new Orders();
 		double order_amount= 0.0;
@@ -102,13 +108,9 @@ public class OrdersServicesImpl implements OrdersServices {
 		
 		transaction.setTransactionTime(LocalTime.now());
 		transaction.setTransactionDate(LocalDate.now());
-		try {
-		transaction.setTtype(TransactionType.valueOf(TransactionType.class, transactionmethod));
-		}catch(IllegalArgumentException | NullPointerException exp) {
-			throw new OperationFaliureException("Operation Fallure");
-		}
+		 TransactionMethod tmethod = tmrepo.findById(transactionMethodId).orElseThrow(()->new TransactionMethodNotFoundException("Transaction Methods not found or invalid transaction method used"));
 		transaction.setStatus(TransactionStatus.Completed);
-		
+		tmethod.getTransactions().add(transaction);
 		order.setTransaction(transaction);
 	    
 		
@@ -116,7 +118,7 @@ public class OrdersServicesImpl implements OrdersServices {
 		
 		
 		
-		
+		tmrepo.save(tmethod);
 		
 		return orepo.save(order);
 	}
