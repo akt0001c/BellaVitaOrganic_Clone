@@ -10,4 +10,5 @@ import com.vitaOrganic.entity.Users;
 @Repository
 public interface UsersRepository extends JpaRepository<Users, Integer> {
 public Optional<Users> findByEmail(String email);
+public Optional<Users> findByEmailAndFirstName(String email,String FirstName);
 }
