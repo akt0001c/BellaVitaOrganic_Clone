@@ -1,6 +1,8 @@
 package com.vitaOrganic.entity;
 
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +14,21 @@ import lombok.NoArgsConstructor;
 public class Address {
 	
 	private String type;
+	
+	@NotEmpty(message="House no or Street no or Area are mandatory")
+	@NotBlank(message="House no or Street no or Area are mandatory")
 	private String hno_street_area;
+	
+	@NotEmpty(message="State field is mandatory")
+	@NotBlank(message="State field is mandatory and cannot be blank")
 	private String state;
+	
+	@NotEmpty(message="city field is mandatory ")
+	@NotBlank(message="city field is mandatory and cannot be blank")
 	private String city;
+	
+	@NotEmpty(message="Area pincode is mandatory")
+	@NotBlank(message="Area pincode is mandatory and cannot be blank")
 	private String pincode;
 	
 

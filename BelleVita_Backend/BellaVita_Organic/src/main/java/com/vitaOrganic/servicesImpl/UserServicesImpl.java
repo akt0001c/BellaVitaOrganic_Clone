@@ -1,5 +1,6 @@
 package com.vitaOrganic.servicesImpl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,35 +27,51 @@ public class UserServicesImpl implements UsersServices {
 		this.urepo = urepo;
 	}
 
-	@Override
-	public String logIn(String email, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
-	public String signUp(Users user) {
-		// TODO Auto-generated method stub
-		return "";
+	public String userSignUp(Users user) {
+		String res=null;
+		user.setCreatedAt(LocalDateTime.now());
+		user.setRole("USER");
+		user.setStatus(UserStatus.Active);
+		try {
+		
+		Users ob= urepo.save(user);
+		if(ob!=null)
+			 res="User created successfully";
+		else
+			throw new Exception();
+		}catch(Exception e) {
+			throw new OperationFaliureException("Something went wrong ,or Operation faliure");
+		}
+			
+		return res;
 	}
 
 	@Override
 	public Users getUserDetails(String email) {
-		// TODO Auto-generated method stub
-		return new Users();
+		 Users user= urepo.findByEmail(email).orElseThrow(()-> new UserNotFoundException("User does not exist with this email : "+email));
+		 
+		return  user;
 	}
 
 	@Override
 	public List<Users> getAllUsers() {
 		
 		List<Users>  res = urepo.findAll();
+		if(res.isEmpty())
+			  throw new OperationFaliureException("NO user found");
+		
 		return res;
 	}
 
 	@Override
 	public Users changeStatus(String email ,String status) {
-		 Users user= urepo.findByEmail(email).orElseThrow(()-> new UserNotFoundException("User does not exist with this email : "+email));
-		 try {
+		  Users user=null;
+		  try {
+		   user= urepo.findByEmail(email).orElseThrow(()-> new UserNotFoundException("User does not exist with this email : "+email));
+		 
 		 user.setStatus(UserStatus.valueOf(UserStatus.class, status));
 		 }catch(IllegalArgumentException | NullPointerException exp) {
 			throw new  OperationFaliureException("Operation Faliure due to invalid argument in method ");
@@ -80,6 +97,40 @@ public class UserServicesImpl implements UsersServices {
 		Users user= urepo.findByEmailAndFirstName(email, FirstName).orElseThrow( ()-> new  UserNotFoundException("User does not exist with this email : "+email));
 		addressList= user.getAddresses().stream().toList();
 		return addressList;
+	}
+
+
+
+	@Override
+	public String adminSignUp(Users user) {
+		String res=null;
+		user.setCreatedAt(LocalDateTime.now());
+		user.setRole("ADMIN");
+		user.setStatus(UserStatus.Active);
+		try {
+		
+		Users ob= urepo.save(user);
+		if(ob!=null)
+			 res="User created successfully";
+		else
+			throw new Exception();
+		}catch(Exception e) {
+			throw new OperationFaliureException("Something went wrong ,or Operation faliure");
+		}
+			
+		return res;
+	
+	}
+
+
+
+	@Override
+	public Address addAddress(String email, Address ob) {
+		
+		Users user= urepo.findByEmail(email).orElseThrow( ()-> new  UserNotFoundException("User does not exist with this email : "+email));
+		user.getAddresses().add(ob);
+		urepo.save(user);
+		return ob;
 	}
 
 }

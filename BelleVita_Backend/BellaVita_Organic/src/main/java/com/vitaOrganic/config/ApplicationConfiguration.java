@@ -49,17 +49,7 @@ public class ApplicationConfiguration {
 	} 
 	
 	
-//	@Bean
-//	public InMemoryUserDetailsManager userDetailsService() {
-//		UserDetails admin= User.withDefaultPasswordEncoder()
-//				.username("akt0007100@gmail.com")
-//				.password("1234")
-//				.authorities("admin")
-//				.build();
-//	
-//		
-//		return new InMemoryUserDetailsManager(admin);
-//	}
+
 	
 	
 	@Bean
