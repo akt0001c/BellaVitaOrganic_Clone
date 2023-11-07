@@ -60,6 +60,16 @@ private PasswordEncoder pencoder;
 	    return new ResponseEntity<>(res,HttpStatus.CREATED);	
 	}
 	
+	@GetMapping("/signIn")
+	public ResponseEntity<String> getLoginDetails(Authentication auth){
+		Users user = (Users)auth.getPrincipal();
+		
+		//Users user= uservice.getUserDetails(auth.getName());
+		String res= user.getFirstName()+" "+user.getLastName()+" "+"Logged in Successfully";
+		return new ResponseEntity<>(res,HttpStatus.ACCEPTED);
+			
+	}
+	
 	
     @GetMapping("/testing")
     public ResponseEntity<String> testMethod(){
