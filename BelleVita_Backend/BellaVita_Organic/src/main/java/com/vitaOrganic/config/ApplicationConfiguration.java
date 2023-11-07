@@ -52,6 +52,8 @@ public class ApplicationConfiguration {
 
 	
 	
+	
+	
 	@Bean
 	public InMemoryUserDetailsManager userDetailsService() {
 		InMemoryUserDetailsManager userDetailsService = new InMemoryUserDetailsManager();

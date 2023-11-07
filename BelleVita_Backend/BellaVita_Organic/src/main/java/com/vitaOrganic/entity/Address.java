@@ -1,5 +1,7 @@
 package com.vitaOrganic.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -13,7 +15,11 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class Address {
 	
-	private String type;
+	private AddressType adType;
+	
+	@NotEmpty(message="Address receiver name is mandatory")
+	@NotBlank(message="Adderss receiver name is mandatory and cannot be blank")
+	private String Name;
 	
 	@NotEmpty(message="House no or Street no or Area are mandatory")
 	@NotBlank(message="House no or Street no or Area are mandatory")
@@ -30,6 +36,12 @@ public class Address {
 	@NotEmpty(message="Area pincode is mandatory")
 	@NotBlank(message="Area pincode is mandatory and cannot be blank")
 	private String pincode;
+	
+	@NotEmpty(message="Address Phone numeber is mandatory")
+	@NotBlank(message="Address Phone number is mandatory  and cannot be blank")
+	private String phoneNO;
+	
+	private LocalDateTime updatedAt;
 	
 
 }

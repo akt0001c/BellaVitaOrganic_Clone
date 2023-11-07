@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vitaOrganic.entity.Address;
+import com.vitaOrganic.entity.AddressType;
 import com.vitaOrganic.entity.UserStatus;
 import com.vitaOrganic.entity.Users;
 import com.vitaOrganic.execptions.OperationFaliureException;
@@ -29,6 +30,13 @@ public class UserServicesImpl implements UsersServices {
 
 	
 
+	/**
+	 * It used by user to create an account as a user or sign up
+	 * @exception OperationFaliureException 
+	 * @param Users user
+	 * @author Ankit Choubey
+	 * @return String response 
+	 */
 	@Override
 	public String userSignUp(Users user) {
 		String res=null;
@@ -49,6 +57,13 @@ public class UserServicesImpl implements UsersServices {
 		return res;
 	}
 
+	/**
+	 * This mehtod is user to get user details using user email
+	 * @author Ankit choubey 
+	 * @exception UserNotFoundException
+	 * @param String uemail
+	 * @return Users user
+	 */
 	@Override
 	public Users getUserDetails(String email) {
 		 Users user= urepo.findByEmail(email).orElseThrow(()-> new UserNotFoundException("User does not exist with this email : "+email));
@@ -56,6 +71,14 @@ public class UserServicesImpl implements UsersServices {
 		return  user;
 	}
 
+	/**
+	 * This method is uset to get the list of all the users 
+	 * @author Ankit choubey
+	 * @exception OperationFaliureException
+	 * @return List<Users>
+	 * 
+	 * 
+	 */
 	@Override
 	public List<Users> getAllUsers() {
 		
@@ -66,6 +89,13 @@ public class UserServicesImpl implements UsersServices {
 		return res;
 	}
 
+	/**
+	 * This method is used to change the status of the user 
+	 * @author Ankit Choubey
+	 * @exception UserNotFoundException
+	 * @param String email,String status
+	 * @return Users 
+	 */
 	@Override
 	public Users changeStatus(String email ,String status) {
 		  Users user=null;
@@ -79,6 +109,13 @@ public class UserServicesImpl implements UsersServices {
 		return user;
 	}
 
+	/**
+	 * This method is used by user to deactivate account 
+	 * @author Ankit Choubey
+	 * @exception UserNotLoggedException
+	 * @param String email
+	 * @return String 
+	 */
 	@Override
 	public String deactivateAccount(String email) {
 		String res=null;
@@ -89,7 +126,15 @@ public class UserServicesImpl implements UsersServices {
 			   res= "User account has been deactivated";
 		return res;
 	}
+	
 
+	/**
+	 * This method is used to get the list all addresses using user email and FirstName
+	 * @author Ankit Choubey
+	 * @exception UserNotFoundException
+	 * @param String email,String FirstName
+	 * @return Users 
+	 */
 	@Override
 	public List<Address> getAllAddress(String email, String FirstName) {
 		
@@ -101,6 +146,13 @@ public class UserServicesImpl implements UsersServices {
 
 
 
+	/**
+	 * This method is used to create an account for an admin only
+	 * @author Ankit Choubey
+	 * @exception OperationFaliureException
+	 * @param Users  user
+	 * @return Users 
+	 */
 	@Override
 	public String adminSignUp(Users user) {
 		String res=null;
@@ -124,10 +176,24 @@ public class UserServicesImpl implements UsersServices {
 
 
 
+	/**
+	 * This method is used to add address for one particular user
+	 * @author Ankit Choubey
+	 * @exception UserNotFoundException OperationFaliureException
+	 * @param String email,Address ob,String addressType
+	 * @return Address 
+	 */
 	@Override
-	public Address addAddress(String email, Address ob) {
+	public Address addAddress(String email, Address ob,String adressType) {
+		
 		
 		Users user= urepo.findByEmail(email).orElseThrow( ()-> new  UserNotFoundException("User does not exist with this email : "+email));
+		ob.setUpdatedAt(LocalDateTime.now());
+		try {
+		ob.setAdType(AddressType.valueOf(AddressType.class, adressType));
+		}catch(Exception exp) {
+			throw new OperationFaliureException("Something went wrong ,please try again");
+		}
 		user.getAddresses().add(ob);
 		urepo.save(user);
 		return ob;

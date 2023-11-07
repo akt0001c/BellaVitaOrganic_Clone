@@ -12,7 +12,7 @@ public interface UsersServices {
  public List<Users> getAllUsers();
  public Users changeStatus(String email,String status);
  public String deactivateAccount(String email);
- public Address addAddress(String email, Address ob);
+ public Address addAddress(String email, Address ob,String addressType);
  public List<Address>  getAllAddress(String email,String FirstName);
  
  

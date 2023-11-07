@@ -116,6 +116,16 @@ private PasswordEncoder pencoder;
 		return new ResponseEntity<>(list,HttpStatus.FOUND);
 	}
 	
+	@PostMapping("/POST/add/address")
+	public ResponseEntity<Address> addAdress(@Valid  Authentication auth,@RequestBody  Address address,@RequestParam("type") String addressType){
+		String uemail= auth.getName();
+		if(uemail==null)
+			 throw new UserNotLoggedInException("You are not logged in ,Please login first");
+		
+		Address res= uservice.addAddress(uemail, address, addressType);
+		return new ResponseEntity<>(res,HttpStatus.ACCEPTED);
+	}
+	
 	
 	
 	
