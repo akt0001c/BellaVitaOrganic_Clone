@@ -53,19 +53,19 @@ public ResponseEntity<Products> removeProduct( @PathVariable("pid") Integer pid)
 @GetMapping("/product/{pid}")
 public ResponseEntity<Products> getProductById(@PathVariable("pid") Integer id){
 	Products res= pservices.getProductById(id);
-	return new ResponseEntity<>(res,HttpStatus.FOUND);
+	return new ResponseEntity<>(res,HttpStatus.OK);
 }
 
 @GetMapping("/products/productName")
 public ResponseEntity<List<Products>> getProductByName(@RequestParam("pname") String name){
 	List<Products> res= pservices.getProductByName(name);
-	return new ResponseEntity<>(res,HttpStatus.FOUND);
+	return new ResponseEntity<>(res,HttpStatus.OK);
 } 
  
 @GetMapping("/products")
 public ResponseEntity<List<Products>> getAllProducts(){
 	List<Products> res= pservices.getAllProducts();
-	return new ResponseEntity<>(res,HttpStatus.FOUND);
+	return new ResponseEntity<>(res,HttpStatus.OK);
 }
 
 @PatchMapping("/update/status/{pid}")

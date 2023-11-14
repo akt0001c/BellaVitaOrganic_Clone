@@ -51,19 +51,19 @@ public ResponseEntity<Orders> changeOrderStatus(@PathVariable("oid") Integer oid
 @GetMapping("/order/{oid}")
 public ResponseEntity<Orders> getOrderDetail(@PathVariable("oid") Integer oid){
 	Orders res= oservice.getOrderDetailById(oid);
-	return new ResponseEntity<>(res,HttpStatus.FOUND);
+	return new ResponseEntity<>(res,HttpStatus.ACCEPTED);
 }
 
 @GetMapping("/orders")
 public ResponseEntity<List<Orders>> getAllOrders(){
 	List<Orders> res= new ArrayList<>();
-	return new ResponseEntity<>(res,HttpStatus.FOUND);
+	return new ResponseEntity<>(res,HttpStatus.OK);
 }
 
 @GetMapping("/ordersForOne")
 public ResponseEntity<List<Orders>> getOrdersForOneUser(Authentication auth){
 	List<Orders> res= oservice.getOrdersForOneUser(auth.getName());
-	return new ResponseEntity<>(res,HttpStatus.FOUND);
+	return new ResponseEntity<>(res,HttpStatus.ACCEPTED);
 }
 
 

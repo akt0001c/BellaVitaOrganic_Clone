@@ -45,7 +45,7 @@ public class TransactionMethodsController {
 	@GetMapping("/getAll")
 	public ResponseEntity<List<TransactionMethod>> getAllMethods(){
 		List<TransactionMethod> res= tmservices.getAllTransactionMethods();
-		return new ResponseEntity<>(res,HttpStatus.FOUND);
+		return new ResponseEntity<>(res,HttpStatus.OK);
 	}
 	
 	@PatchMapping("/update/{tmid}")

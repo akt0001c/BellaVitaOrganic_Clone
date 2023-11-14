@@ -37,7 +37,7 @@ public ResponseEntity<Transactions> changeStatus(@PathVariable("tid") Integer ti
 @GetMapping("/transactions/{tid}")
 public ResponseEntity<Transactions> getTranansactionById(@PathVariable("tid") Integer tid){
 	Transactions res= tservices.getTransactionById(tid);
-	return new ResponseEntity<>(res,HttpStatus.FOUND);
+	return new ResponseEntity<>(res,HttpStatus.ACCEPTED);
 }
 
 @GetMapping("/user/transactions")
@@ -48,7 +48,7 @@ public ResponseEntity<List<Transactions>> getAllUserTransactions(Authentication 
 	    res= tservices.getTransactionsForOneUser(uemail);
 	else
 		res= tservices.getTransactionsForPeriod(uemail, date1, date2);
-	return new ResponseEntity<>(res,HttpStatus.FOUND);
+	return new ResponseEntity<>(res,HttpStatus.OK);
 }
 
 
@@ -56,7 +56,7 @@ public ResponseEntity<List<Transactions>> getAllUserTransactions(Authentication 
 @GetMapping("/transactions")
 public ResponseEntity<List<Transactions>> getTransactions(){
 	List<Transactions> res= tservices.getAllTransactions();
-	return new ResponseEntity<>(res,HttpStatus.FOUND);
+	return new ResponseEntity<>(res,HttpStatus.ACCEPTED);
 }
 
 

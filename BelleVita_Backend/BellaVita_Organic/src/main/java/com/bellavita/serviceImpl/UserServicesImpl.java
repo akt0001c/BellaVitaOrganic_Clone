@@ -31,23 +31,21 @@ public class UserServicesImpl implements UsersServices {
 	/**
 	 * It used by user to create an account as a user or sign up
 	 * @exception OperationFaliureException 
-	 * @param Users user
+	 * @param Users object which will be provided by user
 	 * @author Ankit Choubey
-	 * @return String response 
+	 * @return Users object
 	 */
 	@Override
-	public String userSignUp(Users user) {
-		String res=null;
+	public Users userSignUp(Users user) {
+		Users res=null;
 		user.setCreatedAt(LocalDateTime.now());
 		user.setRole("user");
 		user.setStatus(UserStatus.Active);
 		
 		try {
-			Users ob= urepo.save(user);
+			res= urepo.save(user);
 		
-		if(ob!=null)
-			 res="User created successfully";
-		else
+		  if(res==null)
 			throw new Exception();
 		}catch(Exception e) {
 			throw new OperationFaliureException("Something went wrong ,or Operation faliure");
@@ -153,23 +151,21 @@ public class UserServicesImpl implements UsersServices {
 	 * @return Users 
 	 */
 	@Override
-	public String adminSignUp(Users user) {
+	public Users adminSignUp(Users user) {
 		System.out.println("Welcome in admin registration");
-		String res=null;
+		Users res=null;
 		user.setCreatedAt(LocalDateTime.now());
 		user.setRole("admin");
 		user.setStatus(UserStatus.Active);
 		
 		try {
-			Users ob= urepo.save(user);
+			res= urepo.save(user);
 		
-		System.out.println(ob);
-		if(ob!=null)
-			 res="User created successfully";
-		else
-			throw new Exception();
 		
-		System.out.println(ob);
+		if(res==null)
+		   	throw new Exception();
+		
+		
 		}catch(Exception e) {
 			throw new OperationFaliureException("Something went wrong ,or Operation faliure");
 		}

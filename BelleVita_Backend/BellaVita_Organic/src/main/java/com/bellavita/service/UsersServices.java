@@ -6,8 +6,8 @@ import com.bellavita.entity.Address;
 import com.bellavita.entity.Users;
 
 public interface UsersServices {
- public String adminSignUp(Users user);
- public String  userSignUp(Users user);
+ public Users adminSignUp(Users user);
+ public Users  userSignUp(Users user);
  public Users  getUserDetails(String email);
  public List<Users> getAllUsers();
  public Users changeStatus(String email,String status);

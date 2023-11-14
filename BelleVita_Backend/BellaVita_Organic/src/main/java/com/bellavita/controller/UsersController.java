@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bellavita.dto.UserInfoDto;
 import com.bellavita.entity.Address;
 import com.bellavita.entity.Users;
 import com.bellavita.exceptions.OperationFaliureException;
@@ -46,10 +45,10 @@ private PasswordEncoder pencoder;
 
 
 	@PostMapping("/signUp")
-	public ResponseEntity<String> signUp(@Valid @RequestBody  Users user){
+	public ResponseEntity<Users> signUp(@Valid @RequestBody  Users user){
 		user.setPassword(pencoder.encode(user.getPassword()));
 		
-		String res=null;
+		Users res=null;
 		if(user.getRole().equals("user"))
 			res= uservice.userSignUp(user);
 		else if(user.getRole().equals("admin"))
@@ -63,7 +62,7 @@ private PasswordEncoder pencoder;
 	@GetMapping("/signIn")
 	public ResponseEntity<String> getLoginDetails(Authentication auth){
 		System.out.println("welcome login in progress");
-	//	Users user = (Users)auth.getPrincipal();
+	    System.out.println("authentication in progress for :"+auth.getName());
 		
 		Users user= uservice.getUserDetails(auth.getName());
 		String res= user.getFirstName()+" "+user.getLastName()+" "+"Logged in Successfully";
@@ -79,12 +78,12 @@ private PasswordEncoder pencoder;
     
 	@GetMapping("/GET/User")
 	public ResponseEntity<Users> getUser(Authentication auth){
-		if(auth.getName()==null)
+		if(auth ==null)
 			  throw new UserNotLoggedInException("Sorry you are not log in,Please login first");
 		
 		Users user= uservice.getUserDetails(auth.getName());
 	
-		return new ResponseEntity<>(user ,HttpStatus.FOUND);
+		return new ResponseEntity<>(user ,HttpStatus.ACCEPTED);
 	}
 	
 	@GetMapping("/Admin/User/{uemail}")
@@ -92,7 +91,7 @@ private PasswordEncoder pencoder;
 		
 		Users user= uservice.getUserDetails(email);
 	
-		return new ResponseEntity<>(user ,HttpStatus.FOUND);
+		return new ResponseEntity<>(user ,HttpStatus.ACCEPTED);
 	}
 	
 	@GetMapping("/GET/Users")
@@ -101,7 +100,7 @@ private PasswordEncoder pencoder;
 		
 	
 		
-		return new ResponseEntity<>(list,HttpStatus.FOUND);
+		return new ResponseEntity<>(list,HttpStatus.OK);
 	} 
 	
 	@PatchMapping("/PATCH/User")
@@ -122,9 +121,9 @@ private PasswordEncoder pencoder;
 	}
 	
 	@GetMapping("/GET/addresses")
-	public ResponseEntity<List<Address>> getAddresses(@Valid @RequestBody UserInfoDto ob){
-		List<Address> list = uservice.getAllAddress(ob.getEmail(), ob.getFirstName());
-		return new ResponseEntity<>(list,HttpStatus.FOUND);
+	public ResponseEntity<List<Address>> getAddresses(@RequestParam("ueamil") String ueamil,@RequestParam("fname") String fname){
+		List<Address> list = uservice.getAllAddress(ueamil,fname);
+		return new ResponseEntity<>(list,HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/POST/add/address")
