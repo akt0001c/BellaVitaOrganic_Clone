@@ -17,7 +17,6 @@ import com.bellavita.service.ProductsServices;
 import jakarta.transaction.Transactional;
 
 @Service
-@Transactional
 public class ProductsServicesImpl  implements ProductsServices{
 	
 	private ProductsRepository prepo;
@@ -30,7 +29,7 @@ public class ProductsServicesImpl  implements ProductsServices{
 	/**
 	 * It is used to add product product into the database 
 	 * @author Ankit choubey
-	 * @param Products
+	 * @param Products ob
 	 * @return Products
 	 */
 	@Override
@@ -47,7 +46,7 @@ public class ProductsServicesImpl  implements ProductsServices{
 	}
 
 	/**
-	 * It is used to update product name , price and image url 
+	 * It is used to update product name , price and image url by taking changes into the product details 
 	 * @author Ankit choubey
 	 * @param Integer productid, ProductsUpadatedFieldsDto ob
 	 * @exception ProductNotFoundException

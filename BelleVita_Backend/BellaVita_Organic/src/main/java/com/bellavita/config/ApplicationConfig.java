@@ -33,9 +33,13 @@ public class ApplicationConfig {
 	@Bean
 	public SecurityFilterChain mysecurityFilterChainHandler( HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(auth->{
-			auth.requestMatchers(HttpMethod.POST,"/signUp").permitAll()
-			.requestMatchers(HttpMethod.GET,"/products").permitAll()
+			auth.requestMatchers(HttpMethod.POST,"/users/signUp").permitAll()
+		     .requestMatchers(HttpMethod.GET,"/products/products").permitAll()
+			.requestMatchers("/products/**").hasRole("ADMIN")
+			.requestMatchers("users/user/{uemail}","users/user/status","users/addresses").hasRole("ADMIN")
+			.requestMatchers("/users/add/address").hasAnyRole("ADMIN","USER")
 			.requestMatchers("/swagger-ui*/**","/v3/api-docs/**").permitAll()
+			
 			.anyRequest().authenticated();
 		}).csrf(csrf->csrf.disable())
 		  .formLogin(Customizer.withDefaults())

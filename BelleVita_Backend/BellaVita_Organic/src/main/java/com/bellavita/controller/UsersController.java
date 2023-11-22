@@ -49,9 +49,9 @@ private PasswordEncoder pencoder;
 		user.setPassword(pencoder.encode(user.getPassword()));
 		
 		Users res=null;
-		if(user.getRole().equals("user"))
+		if(user.getRole().equalsIgnoreCase("user"))
 			res= uservice.userSignUp(user);
-		else if(user.getRole().equals("admin"))
+		else if(user.getRole().equalsIgnoreCase("admin"))
 			 res= uservice.adminSignUp(user);
 		else
 			throw new OperationFaliureException("Some thing went wrong ,Please try again");
@@ -76,7 +76,7 @@ private PasswordEncoder pencoder;
     	return new ResponseEntity<>("Welcome User",HttpStatus.ACCEPTED);
     }
     
-	@GetMapping("/GET/User")
+	@GetMapping("/logged/user")
 	public ResponseEntity<Users> getUser(Authentication auth){
 		if(auth ==null)
 			  throw new UserNotLoggedInException("Sorry you are not log in,Please login first");
@@ -86,7 +86,7 @@ private PasswordEncoder pencoder;
 		return new ResponseEntity<>(user ,HttpStatus.ACCEPTED);
 	}
 	
-	@GetMapping("/Admin/User/{uemail}")
+	@GetMapping("/user/{uemail}")
 	public ResponseEntity<Users> getUserdetails(@PathVariable("uemail") String email){
 		
 		Users user= uservice.getUserDetails(email);
@@ -94,7 +94,7 @@ private PasswordEncoder pencoder;
 		return new ResponseEntity<>(user ,HttpStatus.ACCEPTED);
 	}
 	
-	@GetMapping("/GET/Users")
+	@GetMapping("/users")
 	public ResponseEntity<List<Users>> getAllUser(){
 		List<Users> list = uservice.getAllUsers();
 		
@@ -103,30 +103,30 @@ private PasswordEncoder pencoder;
 		return new ResponseEntity<>(list,HttpStatus.OK);
 	} 
 	
-	@PatchMapping("/PATCH/User")
+	@PatchMapping("/user/status")
 	public ResponseEntity<Users> changeStatus(@RequestParam("uemail") String email, @RequestParam("ustatus") String status){
 		Users user= uservice.changeStatus(email, status);
 		return new ResponseEntity<>(user,HttpStatus.ACCEPTED);
 	}
 	
-	@PatchMapping("/PATCH/user/deactivate")
-	public ResponseEntity<String> deactivateAccountByUser(Authentication auth)
-	{
-		if(auth.getName()==null)
-			  throw new UserNotLoggedInException("Sorry you are not log in,Please login first");
-		
-		String res= uservice.deactivateAccount(auth.getName());
-		
-		return new ResponseEntity<>(res,HttpStatus.ACCEPTED);
-	}
+//	@PatchMapping("/user/logged/deactivate")
+//	public ResponseEntity<String> deactivateAccountByUser(Authentication auth)
+//	{
+//		if(auth.getName()==null)
+//			  throw new UserNotLoggedInException("Sorry you are not log in,Please login first");
+//		
+//		String res= uservice.deactivateAccount(auth.getName());
+//		
+//		return new ResponseEntity<>(res,HttpStatus.ACCEPTED);
+//	}
 	
-	@GetMapping("/GET/addresses")
+	@GetMapping("/addresses")
 	public ResponseEntity<List<Address>> getAddresses(@RequestParam("ueamil") String ueamil,@RequestParam("fname") String fname){
 		List<Address> list = uservice.getAllAddress(ueamil,fname);
 		return new ResponseEntity<>(list,HttpStatus.ACCEPTED);
 	}
 	
-	@PostMapping("/POST/add/address")
+	@PostMapping("/add/address")
 	public ResponseEntity<Address> addAdress(@Valid  Authentication auth,@RequestBody  Address address,@RequestParam("type") String addressType){
 		String uemail= auth.getName();
 		if(uemail==null)

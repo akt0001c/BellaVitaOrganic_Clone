@@ -14,7 +14,6 @@ import com.bellavita.service.TransactionsMethodServices;
 import jakarta.transaction.Transactional;
 
 @Service
-@Transactional
 public class TransactionsMethodServiceImpl implements TransactionsMethodServices {
 	
 	private TransactionMethodRepository tmrepo;

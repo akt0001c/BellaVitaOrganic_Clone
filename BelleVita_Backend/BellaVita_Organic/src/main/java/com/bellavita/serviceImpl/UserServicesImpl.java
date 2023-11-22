@@ -39,7 +39,7 @@ public class UserServicesImpl implements UsersServices {
 	public Users userSignUp(Users user) {
 		Users res=null;
 		user.setCreatedAt(LocalDateTime.now());
-		user.setRole("user");
+		user.setRole("ROLE_USER");
 		user.setStatus(UserStatus.Active);
 		
 		try {
@@ -155,7 +155,7 @@ public class UserServicesImpl implements UsersServices {
 		System.out.println("Welcome in admin registration");
 		Users res=null;
 		user.setCreatedAt(LocalDateTime.now());
-		user.setRole("admin");
+		user.setRole("ROLE_ADMIN");
 		user.setStatus(UserStatus.Active);
 		
 		try {
@@ -178,6 +178,7 @@ public class UserServicesImpl implements UsersServices {
 
 	/**
 	 * This method is used to add address for one particular user
+	 * The following are address type- HOME,OFFICE,OTHER  ,any other  address type can lead to operation faliure exception
 	 * @author Ankit Choubey
 	 * @exception UserNotFoundException OperationFaliureException
 	 * @param String email,Address ob,String addressType

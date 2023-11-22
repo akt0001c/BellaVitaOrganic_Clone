@@ -34,7 +34,6 @@ import com.bellavita.service.OrdersServices;
 import jakarta.transaction.Transactional;
 
 @Service
-@Transactional
 public class OrdersServicesImpl implements OrdersServices {
 	
 	

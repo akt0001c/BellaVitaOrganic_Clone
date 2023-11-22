@@ -22,7 +22,7 @@ import com.bellavita.service.ProductsServices;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(value="/Products")
+@RequestMapping(value="/products")
 public class ProductController {
 	
 private ProductsServices pservices;
