@@ -14,8 +14,6 @@ import com.bellavita.exceptions.ProductNotFoundException;
 import com.bellavita.repository.ProductsRepository;
 import com.bellavita.service.ProductsServices;
 
-import jakarta.transaction.Transactional;
-
 @Service
 public class ProductsServicesImpl  implements ProductsServices{
 	

@@ -31,8 +31,6 @@ import com.bellavita.repository.TransactionMethodRepository;
 import com.bellavita.repository.UsersRepository;
 import com.bellavita.service.OrdersServices;
 
-import jakarta.transaction.Transactional;
-
 @Service
 public class OrdersServicesImpl implements OrdersServices {
 	

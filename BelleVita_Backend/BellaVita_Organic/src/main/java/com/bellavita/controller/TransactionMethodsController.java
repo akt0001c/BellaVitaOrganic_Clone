@@ -20,7 +20,7 @@ import com.bellavita.service.TransactionsMethodServices;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/TransactionMethods")
+@RequestMapping("/transactionMethods")
 public class TransactionMethodsController {
 
 	private TransactionsMethodServices tmservices;

@@ -40,7 +40,7 @@ public ResponseEntity<Transactions> getTranansactionById(@PathVariable("tid") In
 	return new ResponseEntity<>(res,HttpStatus.ACCEPTED);
 }
 
-@GetMapping("/user/transactions")
+@GetMapping("/user/logged/transactions")
 public ResponseEntity<List<Transactions>> getAllUserTransactions(Authentication auth,@RequestParam(value="startDate",required=false) LocalDate date1,@RequestParam(value="endDate",required=false) LocalDate date2){
 	String uemail= auth.getName();
 	List<Transactions> res=null;

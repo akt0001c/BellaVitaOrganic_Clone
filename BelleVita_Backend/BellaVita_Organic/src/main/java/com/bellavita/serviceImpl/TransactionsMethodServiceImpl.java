@@ -11,8 +11,6 @@ import com.bellavita.exceptions.TransactionMethodNotFoundException;
 import com.bellavita.repository.TransactionMethodRepository;
 import com.bellavita.service.TransactionsMethodServices;
 
-import jakarta.transaction.Transactional;
-
 @Service
 public class TransactionsMethodServiceImpl implements TransactionsMethodServices {
 	

@@ -97,6 +97,26 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(err,HttpStatus.METHOD_NOT_ALLOWED);
 	}
 	
+	@ExceptionHandler(UserAlreadyExistException.class)
+	public ResponseEntity<MyErrorDetails>  userAlreadyExistExceptionHandler(UserAlreadyExistException exp,WebRequest req){
+		MyErrorDetails err= new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(exp.getLocalizedMessage());
+		err.setDetails(req.getDescription(false));
+		
+		return new ResponseEntity<>(err,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(UserAccountInactiveException.class)
+	public ResponseEntity<MyErrorDetails>  userAccountInactiveExceptionHandler(UserAccountInactiveException exp,WebRequest req){
+		MyErrorDetails err= new MyErrorDetails();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMessage(exp.getLocalizedMessage());
+		err.setDetails(req.getDescription(false));
+		
+		return new ResponseEntity<>(err,HttpStatus.BAD_REQUEST);
+	}
+	
 	@ExceptionHandler(UserNotFoundException.class)
 	public ResponseEntity<MyErrorDetails>  userNotFoundExceptionHandler(UserNotFoundException exp,WebRequest req){
 		MyErrorDetails err= new MyErrorDetails();

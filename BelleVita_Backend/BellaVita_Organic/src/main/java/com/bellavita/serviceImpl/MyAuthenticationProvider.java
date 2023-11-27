@@ -15,7 +15,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.bellavita.entity.UserStatus;
 import com.bellavita.entity.Users;
+import com.bellavita.exceptions.UserAccountInactiveException;
 import com.bellavita.repository.UsersRepository;
 
 @Component
@@ -53,6 +55,9 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 			Users user = opt.get();
 			if(pencoder.matches(password, user.getPassword()))
 					{
+				      if((user.getStatus()==UserStatus.Deactivated_by_user || user.getStatus()==UserStatus.Inactive) && user.getRole().equalsIgnoreCase("ROLE_USER"))
+				    	    throw new UserAccountInactiveException("Account has been detactivated , please contact administration for activating your account");
+				      
 				      List<GrantedAuthority> authorities = new ArrayList<>();
 				      SimpleGrantedAuthority sga= new SimpleGrantedAuthority(user.getRole());
 				      authorities.add(sga);

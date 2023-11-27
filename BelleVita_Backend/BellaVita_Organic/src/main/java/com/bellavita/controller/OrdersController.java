@@ -41,7 +41,7 @@ public ResponseEntity<Orders> placeOrder(@Valid Authentication auth, @RequestBod
   
 }
 
-@PatchMapping("/updateStatus/{oid}")
+@PatchMapping("/update/{oid}")
 public ResponseEntity<Orders> changeOrderStatus(@PathVariable("oid") Integer oid,@RequestParam("status") String status){
 	Orders order= oservice.changeOrderStatus(oid, status);
 	return new ResponseEntity<>(order,HttpStatus.ACCEPTED);
@@ -60,7 +60,7 @@ public ResponseEntity<List<Orders>> getAllOrders(){
 	return new ResponseEntity<>(res,HttpStatus.OK);
 }
 
-@GetMapping("/ordersForOne")
+@GetMapping("/orders/logged/user")
 public ResponseEntity<List<Orders>> getOrdersForOneUser(Authentication auth){
 	List<Orders> res= oservice.getOrdersForOneUser(auth.getName());
 	return new ResponseEntity<>(res,HttpStatus.ACCEPTED);

@@ -2,6 +2,7 @@ package com.bellavita.serviceImpl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import com.bellavita.entity.AddressType;
 import com.bellavita.entity.UserStatus;
 import com.bellavita.entity.Users;
 import com.bellavita.exceptions.OperationFaliureException;
+import com.bellavita.exceptions.UserAlreadyExistException;
 import com.bellavita.exceptions.UserNotFoundException;
 import com.bellavita.exceptions.UserNotLoggedInException;
 import com.bellavita.repository.UsersRepository;
@@ -37,7 +39,14 @@ public class UserServicesImpl implements UsersServices {
 	 */
 	@Override
 	public Users userSignUp(Users user) {
+		
+		Optional<Users> ob= urepo.findByEmail(user.getEmail());
+		if(ob.isPresent())
+			   throw new UserAlreadyExistException("Email already exist ,Please signup with another email");
+		
+		
 		Users res=null;
+		
 		user.setCreatedAt(LocalDateTime.now());
 		user.setRole("ROLE_USER");
 		user.setStatus(UserStatus.Active);
@@ -152,6 +161,9 @@ public class UserServicesImpl implements UsersServices {
 	 */
 	@Override
 	public Users adminSignUp(Users user) {
+		Optional<Users> ob= urepo.findByEmail(user.getEmail());
+		if(ob.isPresent())
+			   throw new UserAlreadyExistException("Email already exist ,Please signup with another email");
 		System.out.println("Welcome in admin registration");
 		Users res=null;
 		user.setCreatedAt(LocalDateTime.now());

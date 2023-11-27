@@ -1,5 +1,8 @@
 package com.bellavita.config;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,8 +14,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 import com.bellavita.serviceImpl.UsersUserDetailService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Configuration
 public class ApplicationConfig {
@@ -20,8 +30,13 @@ public class ApplicationConfig {
 	
 	private final UsersUserDetailService userDetailService;
 
-	@Autowired
-    public ApplicationConfig(UsersUserDetailService userDetailService) {
+
+    public UsersUserDetailService getUserDetailService() {
+		return userDetailService;
+	}
+
+    @Autowired
+	public ApplicationConfig(UsersUserDetailService userDetailService) {
         this.userDetailService = userDetailService;
     }
 	
@@ -32,16 +47,43 @@ public class ApplicationConfig {
 
 	@Bean
 	public SecurityFilterChain mysecurityFilterChainHandler( HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(auth->{
+		CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
+		
+		http.cors(cors->{
+			cors.configurationSource(new CorsConfigurationSource() {
+
+				@Override
+				public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+					CorsConfiguration cfg = new CorsConfiguration();
+					cfg.setAllowedOriginPatterns(Collections.singletonList("*"));
+					cfg.setAllowedMethods(Collections.singletonList("*"));
+					cfg.setAllowCredentials(true);
+					cfg.setAllowedHeaders(Collections.singletonList("*"));
+					cfg.setExposedHeaders(Arrays.asList("Authorization"));
+					
+					return cfg;
+				}
+				
+			});
+		})
+		
+		
+		
+		
+		
+		
+		.authorizeHttpRequests(auth->{
 			auth.requestMatchers(HttpMethod.POST,"/users/signUp").permitAll()
 		     .requestMatchers(HttpMethod.GET,"/products/products").permitAll()
-			.requestMatchers("/products/**").hasRole("ADMIN")
-			.requestMatchers("users/user/{uemail}","users/user/status","users/addresses").hasRole("ADMIN")
-			.requestMatchers("/users/add/address").hasAnyRole("ADMIN","USER")
+			.requestMatchers("/products/**","/transactions/**","/transactionMethods/**").hasRole("ADMIN")
+			.requestMatchers("users/user/{uemail}","users/user/status","users/addresses","orders/update/{oid}","orders/orders").hasRole("ADMIN")
+			.requestMatchers("/users/add/address","/transactions/user/logged/transactions").hasAnyRole("ADMIN","USER")
+			.requestMatchers("orders/placeOrder","orders/order/{oid}","orders/orders/logged/user").hasAnyRole("ADMIN","USER")
 			.requestMatchers("/swagger-ui*/**","/v3/api-docs/**").permitAll()
 			
 			.anyRequest().authenticated();
-		}).csrf(csrf->csrf.disable())
+		}).csrf(csrf->csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("users/signUp").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+		  .addFilterAfter(new CsrfCookieFilter(),BasicAuthenticationFilter.class)
 		  .formLogin(Customizer.withDefaults())
 		  .httpBasic(Customizer.withDefaults());
 		

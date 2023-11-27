@@ -16,8 +16,6 @@ import com.bellavita.repository.TransactionsRepository;
 import com.bellavita.repository.UsersRepository;
 import com.bellavita.service.TransactionsService;
 
-import jakarta.transaction.Transactional;
-
 @Service
 public class TransactionsServiceImpl implements TransactionsService {
 	
