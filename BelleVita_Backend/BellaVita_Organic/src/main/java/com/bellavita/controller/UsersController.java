@@ -61,8 +61,8 @@ private PasswordEncoder pencoder;
 	
 	@GetMapping("/signIn")
 	public ResponseEntity<String> getLoginDetails(Authentication auth){
-		System.out.println("welcome login in progress");
-	    System.out.println("authentication in progress for :"+auth.getName());
+//		System.out.println("welcome login in progress");
+//	    System.out.println("authentication in progress for :"+auth.getName());
 		
 		Users user= uservice.getUserDetails(auth.getName());
 		String res= user.getFirstName()+" "+user.getLastName()+" "+"Logged in Successfully";

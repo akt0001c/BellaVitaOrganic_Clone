@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -49,7 +50,13 @@ public class ApplicationConfig {
 	public SecurityFilterChain mysecurityFilterChainHandler( HttpSecurity http) throws Exception {
 		CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
 		
-		http.cors(cors->{
+		http
+		
+		 .sessionManagement(sessionManagement-> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+		
+		
+		
+		.cors(cors->{
 			cors.configurationSource(new CorsConfigurationSource() {
 
 				@Override
@@ -82,8 +89,13 @@ public class ApplicationConfig {
 			.requestMatchers("/swagger-ui*/**","/v3/api-docs/**").permitAll()
 			
 			.anyRequest().authenticated();
-		}).csrf(csrf->csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("users/signUp").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+		})
+		.csrf(csrf->csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("users/signUp").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+		  .addFilterBefore(new JwtTokenValidatorFilter(), BasicAuthenticationFilter.class)
 		  .addFilterAfter(new CsrfCookieFilter(),BasicAuthenticationFilter.class)
+		  .addFilterAfter(new JwtTokenGeneraterFilter(),CsrfCookieFilter.class )
+		  .addFilterAfter(new AuthoritiesLoggingAfterFilter(), JwtTokenGeneraterFilter.class)
+		  .addFilterAt(new LogginFilterAt(), BasicAuthenticationFilter.class)
 		  .formLogin(Customizer.withDefaults())
 		  .httpBasic(Customizer.withDefaults());
 		

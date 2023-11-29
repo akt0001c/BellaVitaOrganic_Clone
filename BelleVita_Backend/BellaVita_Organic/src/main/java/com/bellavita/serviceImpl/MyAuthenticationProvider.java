@@ -40,7 +40,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		System.out.println("This is my custome authentication provider");
+		//System.out.println("This is my custome authentication provider");
 		String username= authentication.getName();
 		String password= authentication.getCredentials().toString();
 		
