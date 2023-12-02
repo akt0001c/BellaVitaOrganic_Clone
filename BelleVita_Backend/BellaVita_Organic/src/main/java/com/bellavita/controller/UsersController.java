@@ -61,8 +61,7 @@ private PasswordEncoder pencoder;
 	
 	@GetMapping("/signIn")
 	public ResponseEntity<String> getLoginDetails(Authentication auth){
-//		System.out.println("welcome login in progress");
-//	    System.out.println("authentication in progress for :"+auth.getName());
+
 		
 		Users user= uservice.getUserDetails(auth.getName());
 		String res= user.getFirstName()+" "+user.getLastName()+" "+"Logged in Successfully";
@@ -95,8 +94,8 @@ private PasswordEncoder pencoder;
 	}
 	
 	@GetMapping("/users")
-	public ResponseEntity<List<Users>> getAllUser(){
-		List<Users> list = uservice.getAllUsers();
+	public ResponseEntity<List<Users>> getAllUser(@RequestParam( value= "field",required=false) String field, @RequestParam( value= "dir" ,required=false) String direction , @RequestParam( value="pageno", required=false) Integer pageno, @RequestParam( value="records" , required=false) Integer records){
+		List<Users> list = uservice.getAllSortedwithFieldUsers(field, direction,pageno,records);
 		
 	
 		
@@ -121,7 +120,7 @@ private PasswordEncoder pencoder;
 //	}
 	
 	@GetMapping("/addresses")
-	public ResponseEntity<List<Address>> getAddresses(@RequestParam("ueamil") String ueamil,@RequestParam("fname") String fname){
+	public ResponseEntity<List<Address>> getAddresses(@RequestParam("ueamil") String ueamil,@RequestParam("fname") String fname ){
 		List<Address> list = uservice.getAllAddress(ueamil,fname);
 		return new ResponseEntity<>(list,HttpStatus.ACCEPTED);
 	}

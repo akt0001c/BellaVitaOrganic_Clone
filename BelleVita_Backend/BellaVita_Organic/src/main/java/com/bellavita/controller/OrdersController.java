@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bellavita.dto.OrdersDto;
 import com.bellavita.entity.Orders;
+import com.bellavita.exceptions.UserNotLoggedInException;
 import com.bellavita.service.OrdersServices;
 
 import jakarta.validation.Valid;
-
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @RestController
 @RequestMapping("/orders")
 public class OrdersController {
@@ -36,6 +38,9 @@ public void setOservice(OrdersServices oservice) {
 @PostMapping("/placeOrder")	
 public ResponseEntity<Orders> placeOrder(@Valid Authentication auth, @RequestBody  OrdersDto ob, @RequestParam("method") Integer tmethodId){
   String uemail= auth.getName();
+  if(uemail==null)
+	    throw new UserNotLoggedInException("User should be logged in for placing order");
+  
   Orders order= oservice.placeOrder(uemail, ob,tmethodId);
   return new ResponseEntity<>(order,HttpStatus.CREATED);
   
@@ -55,7 +60,7 @@ public ResponseEntity<Orders> getOrderDetail(@PathVariable("oid") Integer oid){
 }
 
 @GetMapping("/orders")
-public ResponseEntity<List<Orders>> getAllOrders(){
+public ResponseEntity<List<Orders>> getAllOrders(@RequestParam( value= "field",required=false) String field, @RequestParam( value= "dir" ,required=false) String direction , @RequestParam( value="pageno", required=false) Integer pageno, @RequestParam( value="records" , required=false) Integer records){
 	List<Orders> res= new ArrayList<>();
 	return new ResponseEntity<>(res,HttpStatus.OK);
 }

@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.bellavita.entity.Address;
@@ -78,7 +82,12 @@ public class UserServicesImpl implements UsersServices {
 	}
 
 	/**
-	 * This method is uset to get the list of all the users 
+	 * This method is used to get the sorted  list of all the users using PagingAndSortingRepository and here parameter direction either can be equal to asc or desc 
+	 *  asc => Ascending
+	 *  desc => Descending
+	 *  By default values : direction= desc, pageno=0 , records(no of records)=10
+	 * Field could be any one of the users entity field
+	 * @param String field,String direction ,Integer pageno,Integer records 
 	 * @author Ankit choubey
 	 * @exception OperationFaliureException
 	 * @return List<Users>
@@ -86,9 +95,24 @@ public class UserServicesImpl implements UsersServices {
 	 * 
 	 */
 	@Override
-	public List<Users> getAllUsers() {
+	public List<Users> getAllSortedwithFieldUsers(String field ,String direction ,Integer pageno,Integer records) {
+		Sort sort=null;
 		
-		List<Users>  res = urepo.findAll();
+		if(field==null)
+			 field= "createdAt";
+		
+		if(pageno==null)
+			  pageno=0;
+		
+		if(records==null)
+			  records= 10;
+		
+		sort= direction.equalsIgnoreCase("asc")?Sort.by(field).ascending():Sort.by(field).descending();
+		
+		Pageable p= PageRequest.of(pageno, records, sort);
+		Page<Users> page = urepo.findAll(p);
+		
+		List<Users>  res = page.getContent();
 		if(res.isEmpty())
 			  throw new OperationFaliureException("NO user found");
 		
@@ -142,9 +166,10 @@ public class UserServicesImpl implements UsersServices {
 	 * @return Users 
 	 */
 	@Override
-	public List<Address> getAllAddress(String email, String FirstName) {
+	public List<Address> getAllAddress(String email, String FirstName ) {
 		
 		List<Address>  addressList = null;
+		
 		Users user= urepo.findByEmailAndFirstName(email, FirstName).orElseThrow( ()-> new  UserNotFoundException("User does not exist with this email : "+email));
 		addressList= user.getAddresses().stream().toList();
 		return addressList;

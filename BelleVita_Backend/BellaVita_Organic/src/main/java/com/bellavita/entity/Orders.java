@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -57,8 +58,8 @@ public class Orders {
 	@OneToOne(mappedBy="order",cascade= CascadeType.PERSIST)
 	private Transactions transaction;
 	
-	
-	
+	@Embedded
+	private Address address;
 	
 	
 	@OneToMany(mappedBy="order",cascade=CascadeType.ALL)

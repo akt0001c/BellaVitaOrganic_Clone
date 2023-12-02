@@ -9,7 +9,7 @@ public interface UsersServices {
  public Users adminSignUp(Users user);
  public Users  userSignUp(Users user);
  public Users  getUserDetails(String email);
- public List<Users> getAllUsers();
+ public List<Users> getAllSortedwithFieldUsers(String field,String direction,Integer pageno,Integer records);
  public Users changeStatus(String email,String status);
  public String deactivateAccount(String email);
  public Address addAddress(String email, Address ob,String addressType);
