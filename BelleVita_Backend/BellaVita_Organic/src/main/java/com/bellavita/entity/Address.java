@@ -19,7 +19,7 @@ public class Address {
 	
 	@NotEmpty(message="Address receiver name is mandatory")
 	@NotBlank(message="Adderss receiver name is mandatory and cannot be blank")
-	private String Name;
+	private String name;
 	
 	@NotEmpty(message="House no or Street no or Area are mandatory")
 	@NotBlank(message="House no or Street no or Area are mandatory")

@@ -28,6 +28,7 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -57,7 +58,7 @@ public class Users {
  
  @NotEmpty(message="Password cannot be Empty")
  @NotBlank(message="Password Cannot be blank so enter valid Password and there should be ")
- //@Pattern(regexp="[A-Z]{1}[a-z]+[@#$]+[1-9]+")
+ @Pattern(regexp="^[A-Z][a-z]+[!@#$%^&*()_+{}|;':\",.<>?/`~\\-=[\\]\\\\;'./A-Za-z0-9]{7,}$")
  @JsonProperty(access= JsonProperty.Access.WRITE_ONLY)
  @Column(unique=true)
  private String password;
