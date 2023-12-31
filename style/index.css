@@ -6,6 +6,7 @@
     margin:auto;
     border-bottom: 1px solid  rgb(188, 188, 194);
     padding:10px;
+    
 } 
 
 
@@ -457,7 +458,7 @@
   
 }
 #footer-details{
-  padding:55px 250px 25px 250px;
+  padding:55px 0 25px 0px;
   background-color: #E4EFDA80;
   font-size: 16px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -465,6 +466,8 @@
 
 
 #footer-table-grid{
+  width:80%;
+  margin:auto;
   display: grid;
   grid-template-columns: repeat(5,1fr);
   grid-template-rows: 300px;
