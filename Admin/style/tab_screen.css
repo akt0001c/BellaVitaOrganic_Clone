@@ -5,10 +5,11 @@
     }
 
     #nav-bar{
-         width:15%;
+         width:10%;
+         flex-direction: row;
     }
 
     #content{
-           width:78%;
+           width:77%;
     }
 }

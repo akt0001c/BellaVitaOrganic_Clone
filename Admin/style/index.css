@@ -53,6 +53,7 @@ width:100%;
 
 border-radius: 4px;
 font-family: Verdana, Geneva, Tahoma, sans-serif;
+display: flex;
 
 list-style-type: none;
 
