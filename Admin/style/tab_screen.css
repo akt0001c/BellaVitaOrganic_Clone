@@ -1,15 +1,3 @@
-@media screen and (min-width:361px ) and (max-width:900px)  {
-    body{
-        background-color: red;
-        justify-content: space-between;
-    }
-
-    #nav-bar{
-         width:10%;
-         flex-direction: row;
-    }
-
-    #content{
-           width:77%;
-    }
+@media screen and (min-width:400px ) and (max-width:900px)  {
+  
 }
